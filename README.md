@@ -18,7 +18,7 @@ The system scrapes job descriptions from the web, semantically matches them with
 ---
 
 
-## 🧠 Architecture (RAG Pipeline)
+## 🧠 Architecture (Project Pipeline)
 
 
 COMPLETE SYSTEM DIAGRAM
@@ -28,6 +28,7 @@ COMPLETE SYSTEM DIAGRAM
 └──────┬───────┘
        │
        ▼
+       
 ┌─────────────────────┐
 │ User Inputs         │
 │ Name, Links, CSV    │
@@ -35,6 +36,7 @@ COMPLETE SYSTEM DIAGRAM
 └──────┬──────────────┘
        │
        ▼
+       
 ┌─────────────────────┐
 │ WebBaseLoader       │
 │ Job Description     │
@@ -47,30 +49,36 @@ COMPLETE SYSTEM DIAGRAM
 └──────┬─────────────────────┘
        │
        ▼
+       
 ┌────────────────────────────┐
 │ Embeddings (HF MiniLM)     │
 │ Vector Representation      │
 └──────┬─────────────────────┘
        │
        ▼
+       
 ┌────────────────────────────┐
 │ ChromaDB                   │
 │ Semantic Similarity Search │
 └──────┬─────────────────────┘
        │
        ▼
+       
 ┌────────────────────────────┐
 │ Relevant Projects (Top 3)  │
 └──────┬─────────────────────┘
        │
        ▼
+       
 ┌────────────────────────────┐
 │ LLM (ChatGroq + Prompt)    │
 │ JSON Email Generation      │
 └──────┬─────────────────────┘
        │
        ▼
+       
 ┌────────────────────────────┐
 │ Streamlit Output           │
 │ Subjects + Email Body      │
+
 └────────────────────────────┘
