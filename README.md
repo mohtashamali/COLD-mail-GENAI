@@ -20,65 +20,66 @@ The system scrapes job descriptions from the web, semantically matches them with
 
 ## 🧠 Architecture (Project Pipeline)
 
-
-COMPLETE SYSTEM DIAGRAM
-┌──────────────┐
-│   Streamlit  │
-│   Frontend   │
-└──────┬───────┘
-       │
-       ▼
-       
-┌─────────────────────┐
-│ User Inputs         │
-│ Name, Links, CSV    │
-│ Job URL             │
-└──────┬──────────────┘
-       │
-       ▼
-       
-┌─────────────────────┐
-│ WebBaseLoader       │
-│ Job Description     │
-└──────┬──────────────┘
-       │
-       ▼
-┌────────────────────────────┐
-│ CSV → Documents            │
-│ Skill + Project            │
-└──────┬─────────────────────┘
-       │
-       ▼
-       
-┌────────────────────────────┐
-│ Embeddings (HF MiniLM)     │
-│ Vector Representation      │
-└──────┬─────────────────────┘
-       │
-       ▼
-       
-┌────────────────────────────┐
-│ ChromaDB                   │
-│ Semantic Similarity Search │
-└──────┬─────────────────────┘
-       │
-       ▼
-       
-┌────────────────────────────┐
-│ Relevant Projects (Top 3)  │
-└──────┬─────────────────────┘
-       │
-       ▼
-       
-┌────────────────────────────┐
-│ LLM (ChatGroq + Prompt)    │
-│ JSON Email Generation      │
-└──────┬─────────────────────┘
-       │
-       ▼
-       
-┌────────────────────────────┐
-│ Streamlit Output           │
-│ Subjects + Email Body      │
-
-└────────────────────────────┘
+┌──────────────────────────┐
+│        Streamlit UI       │
+│        (Frontend)         │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│        User Inputs        │
+│  • Name                  │
+│  • LinkedIn / GitHub     │
+│  • Job URL               │
+│  • CSV (Skills, Projects)│
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│      WebBaseLoader        │
+│   (Job Description       │
+│      Scraping)           │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   CSV → LangChain Docs   │
+│  (Skill + Project Text)  │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│  Embeddings Generation   │
+│ (HuggingFace MiniLM)     │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│        ChromaDB           │
+│   (Vector Store)          │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ Semantic Similarity Search│
+│     (Top-K Retrieval)    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ Relevant Projects (Top 3)│
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   LLM (ChatGroq + Prompt)│
+│  • Context Injection     │
+│  • JSON-Constrained Gen  │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     Streamlit Output      │
+│ • Subject Lines           │
+│ • Cold Email Body         │
+└──────────────────────────┘
