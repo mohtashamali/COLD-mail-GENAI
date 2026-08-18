@@ -20,6 +20,7 @@ The system scrapes job descriptions from the web, semantically matches them with
 
 ## 🧠 Architecture (Project Pipeline)
 
+
 ┌──────────────────────────┐
 │        Streamlit UI       │
 │        (Frontend)         │
